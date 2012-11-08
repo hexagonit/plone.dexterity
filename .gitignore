@@ -1,3 +1,4 @@
 *.mo
 *.py?
+dist
 plone.dexterity.egg-info/
