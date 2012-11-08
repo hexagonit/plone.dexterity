@@ -362,7 +362,7 @@ class Container(DAVCollectionMixin, BrowserDefaultMixin, CMFCatalogAware, CMFOrd
         return super(Container, self).manage_delObjects(ids, REQUEST=REQUEST)
 
     def _getCopy(self, container):
-        """Necessary for property index uuid of AT content types
+        """Necessary for properly index uuid of AT content types
         located within dexterity container
         when copying and pasting the dexterity container."""
         is_cp_flag = getattr(self, '_v_is_cp', None)
@@ -372,7 +372,7 @@ class Container(DAVCollectionMixin, BrowserDefaultMixin, CMFCatalogAware, CMFOrd
         return ob
 
     def _notifyOfCopyTo(self, container, op=0):
-        """Necessary for property index uuid of AT content types
+        """Necessary for properly index uuid of AT content types
         located within dexterity container
         when copying and pasting the dexterity container."""
         if op == 1:

@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.1.3dev'
+version = '1.1.2.1'
 
 setup(name='plone.dexterity',
       version=version,
@@ -35,7 +35,7 @@ setup(name='plone.dexterity',
 
           'Products.CMFCore',
           'Products.CMFPlone',
-          
+
           'plone.z3cform>=0.6.0',
           'plone.folder',
           'plone.supermodel>=1.0b2',
@@ -43,7 +43,7 @@ setup(name='plone.dexterity',
           'plone.behavior>=1.0b5',
           'plone.autoform>=1.0b2',
           'plone.rfc822',
-          
+
           'zope.app.pagetemplate',
           'zope.app.component',
 
@@ -61,7 +61,7 @@ setup(name='plone.dexterity',
           'zope.filerepresentation>=3.6.0',
           'zope.size',
           'ZODB3',
-          
+
           # 'Acquisition',
           # 'AccessControl',
           # 'Products.CMFCore',
@@ -69,7 +69,7 @@ setup(name='plone.dexterity',
           # 'Products.CMFDynamicViewFTI',
           # 'Products.Five',
           # 'Products.statusmessages',
-          
+
           # -*- Extra requirements: -*-
       ],
       extras_require={
