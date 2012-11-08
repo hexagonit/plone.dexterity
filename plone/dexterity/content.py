@@ -30,8 +30,6 @@ import AccessControl.Permissions
 from AccessControl import ClassSecurityInfo
 from AccessControl import getSecurityManager
 
-from Products.Archetypes.interfaces import IReferenceable
-
 import Products.CMFCore.permissions
 from Products.CMFCore.PortalContent import PortalContent
 from Products.CMFCore.PortalFolder import PortalFolderBase
@@ -364,38 +362,23 @@ class Container(DAVCollectionMixin, BrowserDefaultMixin, CMFCatalogAware, CMFOrd
         return super(Container, self).manage_delObjects(ids, REQUEST=REQUEST)
 
     def _getCopy(self, container):
-        # We only set the '_v_is_cp' flag here if it was already set.
-        #
-        # _getCopy gets called after _notifyOfCopyTo, which should set
-        # _v_cp_refs appropriatedly.
-        #
-        # _getCopy is also called from WebDAV MOVE (though not from
-        # 'manage_pasteObjects')
+        """Necessary for property index uuid of AT content types
+        located within dexterity container
+        when copying and pasting the dexterity container."""
         is_cp_flag = getattr(self, '_v_is_cp', None)
-        cp_refs_flag = getattr(self, '_v_cp_refs', None)
         ob = CopySource._getCopy(self, container)
         if is_cp_flag:
             setattr(ob, '_v_is_cp', is_cp_flag)
-        if cp_refs_flag:
-            setattr(ob, '_v_cp_refs', cp_refs_flag)
         return ob
 
     def _notifyOfCopyTo(self, container, op=0):
-        """keep reference info internally when op == 1 (move)
-        because in those cases we need to keep refs"""
-        # This isn't really safe for concurrent usage, but the
-        # worse case is not that bad and could be fixed with a reindex
-        # on the archetype tool
+        """Necessary for property index uuid of AT content types
+        located within dexterity container
+        when copying and pasting the dexterity container."""
         if op == 1:
-            self._v_cp_refs = 1
             self._v_is_cp = 0
         if op == 0:
-            self._v_cp_refs = 0
             self._v_is_cp = 1
-
-        for child in self.contentValues():
-            if IReferenceable.providedBy(child):
-                child._notifyOfCopyTo(self, op)
 
 
 def reindexOnModify(content, event):
